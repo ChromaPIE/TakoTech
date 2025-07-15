@@ -15,7 +15,7 @@ import moe.takochan.takotech.utils.CommonUtils;
 public abstract class MetaGeneratedToolMixin {
 
     @Invoker("getContainerItem")
-    public abstract ItemStack invokerGetContainerItem(ItemStack aStack, boolean playSound);
+    public abstract ItemStack invokerGetContainerItem(ItemStack aStack, boolean playSound, boolean doDamage);
 
     /**
      * 覆写容器物品存在判断逻辑 当工具耐久耗尽且包含工具箱数据时返回true
@@ -25,7 +25,7 @@ public abstract class MetaGeneratedToolMixin {
      */
     @Overwrite
     public final boolean hasContainerItem(ItemStack aStack) {
-        final ItemStack simulatedResult = invokerGetContainerItem(aStack, false);
+        final ItemStack simulatedResult = invokerGetContainerItem(aStack, false, false);
 
         if ((simulatedResult == null || simulatedResult.stackSize <= 0)) {
             final NBTTagCompound rootTag = CommonUtils.openNbtData(aStack);
@@ -43,7 +43,7 @@ public abstract class MetaGeneratedToolMixin {
      */
     @Overwrite
     public final ItemStack getContainerItem(ItemStack aStack) {
-        final ItemStack vanillaResult = invokerGetContainerItem(aStack, true);
+        final ItemStack vanillaResult = invokerGetContainerItem(aStack, true, true);
 
         // 仅当原版容器物品无效时处理工具箱逻辑
         if (vanillaResult == null || vanillaResult.stackSize <= 0) {

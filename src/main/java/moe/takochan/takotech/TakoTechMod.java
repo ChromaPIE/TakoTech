@@ -1,5 +1,7 @@
 package moe.takochan.takotech;
 
+import net.minecraftforge.common.MinecraftForge;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,6 +13,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import moe.takochan.takotech.common.CommonProxy;
 import moe.takochan.takotech.common.Reference;
+import moe.takochan.takotech.common.event.ItemTooltipHandler;
 import moe.takochan.takotech.network.NetworkHandler;
 
 @Mod(
@@ -45,6 +48,7 @@ public class TakoTechMod {
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
     public void init(FMLInitializationEvent event) {
         proxy.init(event);
+        MinecraftForge.EVENT_BUS.register(new ItemTooltipHandler());
     }
 
     @Mod.EventHandler
